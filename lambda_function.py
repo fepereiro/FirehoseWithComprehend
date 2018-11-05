@@ -15,7 +15,7 @@ def lambda_handler(event, context):
         print(dict_data)
         
         comprehend = boto3.client(service_name='comprehend', region_name='eu-west-1')
-        sentiment_all = comprehend.detect_sentiment(Text=dict_data, LanguageCode='es')
+        sentiment_all = comprehend.detect_sentiment(Text=dict_data, LanguageCode='en')
         sentiment = sentiment_all['Sentiment']
         print(sentiment)
         positive = sentiment_all['SentimentScore']['Positive']
