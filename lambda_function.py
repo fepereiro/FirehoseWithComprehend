@@ -14,8 +14,12 @@ def lambda_handler(event, context):
         dict_data = base64.b64decode(record['data']).decode('utf-8').strip()
         print(dict_data)
         
+        translate = boto3.client(service_name='translate', region_name='eu-west-1')
+        dict_data = translate.translate_text(Text=dict_data, SourceLanguageCode="auto", TargetLanguageCode="es")
+        print(dict_data)
+        
         comprehend = boto3.client(service_name='comprehend', region_name='eu-west-1')
-        sentiment = comprehend.detect_sentiment(Text=dict_data, LanguageCode='en')['Sentiment']
+        sentiment = comprehend.detect_sentiment(Text=dict_data, LanguageCode='es')['Sentiment']
         print(sentiment)
         
         data_record = {
